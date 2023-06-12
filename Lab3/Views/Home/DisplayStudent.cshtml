@@ -1,0 +1,24 @@
+﻿@model Lab3.Models.Student
+@using Microsoft.AspNetCore.Http;
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Display Student";
+}
+
+<h2>Display Person</h2>
+<table>
+    <tr>
+        <td>First Name</td>
+        <td>Last Name</td>
+        <td>Student ID</td>
+        <td>Email Address</td>
+        <td>Student Description</td>
+    </tr>
+    <tr>
+        <td>@Model.FirstName</td>
+        <td>@Model.LastName</td>
+        <td>@Model.StudentId</td>
+        <td>@Model.Email</td>
+        <td>@Model.StudentDescription</td>
+    </tr>
+</table>

@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+<header>
+    <table>
+        <tr>
+            <th>Name: John Yuson</th>
+            <th>Message: Hello and Welcome! I am excited to share with you an opportunity to smile through out the day!</th>
+        </tr>
+        <tr>
+            <td>@Html.ActionLink("Show the song!", "SongForm", "Home")</td>
+            <td>@Html.ActionLink("Home", "Index", "Home")</td>
+        </tr>
+    </table>
+    
+</header>
+<div>
+    @RenderBody()
+</div>
+<footer>
+    <table>
+        <tr>
+            <th>CSS File</th>
+            <th>_Layout</th>
+            <th>Layout</th>
+            <th>Directory</th>
+        </tr>
+        <tr>
+            <td>I used the Proferssor's Sample CSS Code</td>
+            <td>I right click the Views Folder, Choose New Item then Razor Layout to add the _Layout file.</td>
+            <td>Layout reuse a portion of the View space instead of re-implementing the whole page.</td>
+            <td>I put CSS in wwwroot since that folder contains static files. _Layout in Views folder to specify common things in each View file.</td>
+        </tr>
+    </table>
+</footer>
+</body>
+</html>

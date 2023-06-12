@@ -1,0 +1,65 @@
+﻿@using Microsoft.AspNetCore.Http;
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Sing";
+
+    string num = Context.Session.GetString("num");
+    int numInt = Int32.Parse(num);
+    int output = numInt;
+    for (int i = 0; i <= output; i++)
+    {
+        if (output % 2 == 0)
+        {
+            if (i > 2) {
+                <p>
+                    @output little monkeys jumping on the bed,<br />
+                    One fell off and bumped her head,<br />
+                    Mama called the doctor and the doctor said,<br />
+                    "No more monkeys jumping on the bed!"
+                </p>
+            } else if (i == 1) {
+                <p>
+                    One little monkey jumping on the bed,<br />
+                    She fell off and bumped her head,<br />
+                    Mama called the doctor and the doctor said,<br />
+                    "Put those monkeys to bed!"
+                </p>
+            } else if (i == 0) {
+                <p>
+                    No little monkeys jumping on the bed,<br />
+                    None fell off and bumped their head,<br />
+                    Mama called the doctor and the doctor said,<br />
+                    "Put those monkeys back in bed!"
+                </p>
+            }
+        }
+        else
+        {
+            if (i > 2) {
+                <p>
+                    @i little monkeys jumping on the bed,<br />
+                    One fell off and bumped his head,<br />
+                    Mama called the doctor and the doctor said,<br />
+                    "No more monkeys jumping on the bed!"
+                </p>
+            } else if (i == 1) {
+                <p>
+                    One little monkey jumping on the bed,<br />
+                    He fell off and bumped his head,<br />
+                    Mama called the doctor and the doctor said,<br />
+                    "Put those monkeys to bed!"
+                </p>
+            } else if (i == 0) {
+                <p>
+                    No little monkeys jumping on the bed,<br />
+                    None fell off and bumped their head,<br />
+                    Mama called the doctor and the doctor said,<br />
+                    "Put those monkeys back in bed!"
+                </p>
+            }
+        }
+        output -= 1;
+    }
+
+    @Html.ActionLink("Play Again!", "SongForm", "Home")
+}
