@@ -6,3 +6,7 @@
 /Lab1/obj
 /Lab3/bin
 /Lab3/obj
+/Lab4/bin/Debug/net6.0
+/Lab4/obj
+/Lab4/appsettings.Development.json
+/Lab4/appsettings.json
