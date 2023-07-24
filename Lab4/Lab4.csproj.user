@@ -15,5 +15,6 @@
     <WebStackScaffolding_DbContextTypeFullName>Lab4.Data.SportsDbContext</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <WebStackScaffolding_IsViewGenerationSelected>True</WebStackScaffolding_IsViewGenerationSelected>
+    <NameOfLastUsedPublishProfile>C:\Users\johnc\source\dotNet\Summer2023Lab\Lab4\Properties\PublishProfiles\yuso0001Lab4 - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>
