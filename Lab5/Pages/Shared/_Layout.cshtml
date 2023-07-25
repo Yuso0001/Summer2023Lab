@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/css/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<header>
+    <a asp-page="/Index">Home</a>
+    <a asp-page="/Predictions/Index">Predictions</a>
+</header>
+    <br />
+    <div>
+        @RenderBody()
+    </div>
+<footer>
+</footer>
+    @await RenderSectionAsync("Scripts", required:false)
+</body>
+</html>
