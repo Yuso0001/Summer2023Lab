@@ -7,21 +7,16 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Lab5.Data;
 using Lab5.Models;
-using Azure.Storage.Blobs;
 
 namespace Lab5.Pages.Predictions
 {
     public class CreateModel : PageModel
     {
         private readonly Lab5.Data.PredictionDataContext _context;
-        private readonly BlobServiceClient _blobServiceClient;
-        private readonly string earthContainerName = "earthimages";
-        private readonly string computerContainerName = "computerimages";
 
-
-        public CreateModel(Lab5.Data.PredictionDataContext context, BlobServiceClient blobServiceClient) {
+        public CreateModel(Lab5.Data.PredictionDataContext context)
+        {
             _context = context;
-            _blobServiceClient = blobServiceClient;
         }
 
         public IActionResult OnGet()
