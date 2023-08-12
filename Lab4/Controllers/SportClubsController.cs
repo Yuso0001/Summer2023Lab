@@ -23,9 +23,9 @@ namespace Lab4.Controllers
         // GET: SportClubs
         public async Task<IActionResult> Index(string id)
         {
-            var viewModel = new NewsViewModel()
+            var viewModel = new SportClubViewModel()
             {
-                SportClub = await _context.SportClubs
+                SportClubs = await _context.SportClubs
                     .Include(i => i.Subscriptions)
                     .ThenInclude(i => i.Fan)
                     .AsNoTracking()
@@ -35,10 +35,15 @@ namespace Lab4.Controllers
             if (id != null)
             {
                 ViewData["SportClubId"] = id;
-                viewModel.Subscriptions = viewModel.SportClub
+                viewModel.Subscriptions = viewModel.SportClubs
                     .Where(x => x.Id == id).Single().Subscriptions;
             }
             return View(viewModel);
+        }
+
+        public async Task<IActionResult> NewsIndex(string id)
+        {
+            return RedirectToPage("/Index", "OnGetAsync", id);
         }
 
         // GET: SportClubs/Details/5

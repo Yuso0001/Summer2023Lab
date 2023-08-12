@@ -1,3 +1,4 @@
+using Azure.Storage.Blobs;
 using Lab4.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
@@ -8,10 +9,16 @@ namespace Lab4
         public static void Main(string[] args) {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddRazorPages();
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             var connection = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<SportsDbContext>(options => options.UseSqlServer(connection));
+
+            var blobConnection = builder.Configuration.GetConnectionString("AzureBlobStorage");
+            builder.Services.AddSingleton(new BlobServiceClient(blobConnection));
+            
             builder.Services.AddSession();
             var app = builder.Build();
 
@@ -36,9 +43,13 @@ namespace Lab4
 
             app.UseSession();
 
+            app.UseAuthorization();
+
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.MapRazorPages();
 
             app.Run();
         }

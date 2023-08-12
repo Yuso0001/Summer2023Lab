@@ -18,6 +18,6 @@ namespace Lab4.Models {
         [Column(TypeName = "money")]
         public decimal Fee { get; set; }
 
-        public IEnumerable<Subscription> Subscriptions { get; set; }
+        public ICollection<Subscription> Subscriptions { get; set; }
     }
 }

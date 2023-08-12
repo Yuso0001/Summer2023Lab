@@ -1,4 +1,4 @@
-﻿@model Lab4.Models.ViewModels.NewsViewModel
+﻿@model Lab4.Models.ViewModels.SportClubViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -23,7 +23,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model.SportClub) {
+    @foreach (var item in Model.SportClubs) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
@@ -35,7 +35,8 @@
                 <a asp-action="Index" asp-route-id="@item.Id">Select</a> |
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                <a asp-action="NewsIndex" asp-route-id="@item.Id">News</a>
             </td>
         </tr>
     }

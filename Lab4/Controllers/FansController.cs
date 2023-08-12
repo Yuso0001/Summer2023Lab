@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Lab4.Data;
 using Lab4.Models;
+using Lab4.Models.ViewModels;
 
 namespace Lab4.Controllers
 {
@@ -20,10 +21,26 @@ namespace Lab4.Controllers
         }
 
         // GET: Fans
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string id)
         {
-              return View(await _context.Fans.ToListAsync());
+            var viewModel = new SportClubViewModel()
+            {
+                Fans = await _context.Fans
+                    .Include(i => i.Subscriptions)
+                    .AsNoTracking().OrderBy(i => i.Id)
+                    .ToListAsync()
+            };
+            if (id != null)
+            {
+                var sc = from linqtable in _context.Subscriptions
+                    where linqtable.FanId == Int16.Parse(id)
+                    select linqtable.SportClub;
+                viewModel.SportClubs = sc;
+            }
+            return View(viewModel);
         }
+
+
 
         // GET: Fans/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -114,6 +131,66 @@ namespace Lab4.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(fan);
+        }
+
+        public async Task<IActionResult> EditSubscriptions(int? Id, string? sportclubId)
+        {
+            var viewModelFan = new FanSubscriptionViewModel()
+            {
+                Fans = await _context.Fans.Include(i => i.Subscriptions).ThenInclude(i => i.SportClub).AsNoTracking().OrderBy(i => i.Id).ToListAsync()
+            };
+            var viewModel = new SportClubSubscriptionViewModel()
+            {
+                SportClubs = await _context.SportClubs.Include(i => i.Subscriptions)
+                    .ThenInclude(i => i.Fan).AsNoTracking().OrderBy(i => i.Id).ToListAsync()
+            };
+
+            if (Id != null)
+            {
+                ViewData["FanId"] = Id;
+                viewModelFan.Subscriptions = viewModelFan.Fans.Where(i => i.Id == Id).Single().Subscriptions;
+
+                ViewData["FullName"] = viewModelFan.Fans.Where(x => x.Id == Id).Single().FullName;
+                viewModel.Subscriptions = viewModelFan.Subscriptions;
+            }
+
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> RemoveSubscription(string? fanId, string? sportclubId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (fanId == null || sportclubId == null)
+            {
+                return NotFound();
+            }
+
+            var fan = await _context.Fans.FirstOrDefaultAsync(i => i.Id.ToString() == fanId);
+            if (fan == null)
+            {
+                return NotFound();
+            }
+
+            var subs = await _context.Subscriptions.FindAsync(Int32.Parse(fanId), sportclubId);
+            if (subs == null)
+            {
+                return NotFound();
+
+            }
+            _context.Subscriptions.Remove(subs);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> AddSubscription([Bind("FanId, SportClubId")] Subscription sub)
+        {
+            _context.Subscriptions.Add(sub);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Fans/Delete/5

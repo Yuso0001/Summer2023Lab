@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Lab4.Models.Fan>
+﻿@model Lab4.Models.ViewModels.SportClubViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -14,19 +14,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                Last Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                First Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BirthDate)
+                Birth Date
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Fans) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.LastName)
@@ -38,7 +38,9 @@
                 @Html.DisplayFor(modelItem => item.BirthDate)
             </td>
             <td>
+                <a asp-action="Index" asp-route-id="@item.Id">Select</a> |
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="EditSubscriptions" asp-route-id="@item.Id">Edit Subscriptions</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
@@ -46,3 +48,25 @@
 }
     </tbody>
 </table>
+@if (Model.SportClubs != null)
+{
+    <h3>Subscribed to Brokers:</h3>
+    <table class="table">
+        <tr>
+            @if (Model.SportClubs.Count() > 0)
+            {
+                <th>Name</th>
+            }
+            else
+            {
+                <th>Empty SportsClub Subscription Record</th>
+            }
+        </tr>
+        @foreach (var item in Model.SportClubs)
+        {
+            <tr>
+                <td>@item.Title</td>
+            </tr>
+        }
+    </table>
+}

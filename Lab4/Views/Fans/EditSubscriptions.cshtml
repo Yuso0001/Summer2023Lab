@@ -1,0 +1,65 @@
+﻿@model Lab4.Models.ViewModels.SportClubSubscriptionViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    string fanID = ViewData["FanId"]?.ToString();
+    string fullName = ViewData["FullName"]?.ToString();
+    string news = "";
+    var temp = "";
+    var newsList = new List<string>();
+    var oldNews = new HashSet<string>();
+}
+
+<h1>Edit Subscriptions</h1>
+<br />
+<h2>Fan</h2>
+<br />
+<div class="row">
+    <dl class="row">
+        <dt class="col-sm-2">Full Name</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(i => fullName)</dd>
+    </dl>
+</div>
+@if (Model.SportClubs != null) {
+    @if (Model.SportClubs.Any()) {
+        <table class="table">
+            @foreach (var items in Model.Subscriptions) {
+                news = @items.SportClubId;
+                newsList.Add(news);
+                oldNews.Add(news);
+            }
+            @foreach (var items in Model.SportClubs) {
+                if (newsList.Any()) {
+                    @foreach (var articles in newsList) {
+                        @if (articles.Equals(items.Id)) {
+                            <tr>
+                                <td>@items.Title</td>
+                                <td>
+                                    <a asp-controller="Fans" asp-action="RemoveSubscription" asp-route-fanId="@fanID" asp-route-sportclubId="@items.Id">Unregister</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+                if (oldNews.Any()) {
+                    @foreach (var articles in oldNews) {
+                        if (!articles.Equals(items.Id)) {
+                            <tr>
+                                <td>@items.Title</td>
+                                <td>
+                                    <a href="/Fans/AddSubscription?FanId=@fanID&SportClubId=@items.Id">Register</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            }
+        </table>
+    }
+} else {
+    <h3>Empty News Record</h3>
+}
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

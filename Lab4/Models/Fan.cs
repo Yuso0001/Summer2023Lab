@@ -30,6 +30,6 @@ namespace Lab4.Models {
             }
         }
 
-        public IEnumerable<Subscription> Subscriptions { get; set; }
+        public ICollection<Subscription> Subscriptions { get; set; }
     }
 }
