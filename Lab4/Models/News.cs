@@ -2,6 +2,7 @@
 
 namespace Lab4.Models {
     public class News {
+        
         [Key]
         [Microsoft.Build.Framework.Required]
         public int Id { get; set; }
@@ -13,5 +14,8 @@ namespace Lab4.Models {
 
         [Display(Name = "News Images")]
         public string Url { get; set; }
+
+        public string SportClubId { get; set; }
+        public virtual SportClub SportClub { get; set; } = new SportClub();
     }
 }

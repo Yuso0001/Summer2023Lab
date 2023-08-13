@@ -40,6 +40,8 @@
     box-sizing: border-box
 }
 
+
+
 html {
     font-family: sans-serif;
     line-height: 1.15;
@@ -10156,5 +10158,9 @@ a.text-dark:focus, a.text-dark:hover {
         color: inherit;
         border-color: #dee2e6
     }
+
+}
+.backgroundimage {
+    background-image: ;
 }
 /*# sourceMappingURL=bootstrap.min.css.map */

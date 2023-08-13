@@ -25,20 +25,6 @@ namespace Lab4.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "News",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FileName = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_News", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "SportClub",
                 columns: table => new
                 {
@@ -49,6 +35,26 @@ namespace Lab4.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SportClub", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "News",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FileName = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SportClubId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_News", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_News_SportClub_SportClubId",
+                        column: x => x.SportClubId,
+                        principalTable: "SportClub",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -74,6 +80,11 @@ namespace Lab4.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_News_SportClubId",
+                table: "News",
+                column: "SportClubId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Subscription_SportClubId",

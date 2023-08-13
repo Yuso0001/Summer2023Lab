@@ -17,7 +17,7 @@ namespace Lab4.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.18")
+                .HasAnnotation("ProductVersion", "6.0.21")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -60,10 +60,15 @@ namespace Lab4.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
+                    b.Property<string>("SportClubId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SportClubId");
 
                     b.ToTable("News", (string)null);
                 });
@@ -99,6 +104,15 @@ namespace Lab4.Migrations
                     b.HasIndex("SportClubId");
 
                     b.ToTable("Subscription", (string)null);
+                });
+
+            modelBuilder.Entity("Lab4.Models.News", b =>
+                {
+                    b.HasOne("Lab4.Models.SportClub", "SportClub")
+                        .WithMany()
+                        .HasForeignKey("SportClubId");
+
+                    b.Navigation("SportClub");
                 });
 
             modelBuilder.Entity("Lab4.Models.Subscription", b =>

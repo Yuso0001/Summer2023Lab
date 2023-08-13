@@ -43,7 +43,10 @@ namespace Lab4.Controllers
 
         public async Task<IActionResult> NewsIndex(string id)
         {
-            return RedirectToPage("/Index", "OnGetAsync", id);
+
+            return RedirectToAction("Index", "News", new { id });
+
+            //return RedirectToPage("~/Views/SportClubs/News/Index/", new {SportsId = id});
         }
 
         // GET: SportClubs/Details/5
